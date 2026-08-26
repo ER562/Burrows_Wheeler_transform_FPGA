@@ -2,8 +2,9 @@
 
 module odd_even_RBWT_tb #(
     parameter DATA_WIDTH = 8,
-    parameter DATA_VOLUME = 10,
-    parameter REAL_INPUT_LENGTH = 6
+    parameter DATA_VOLUME = 20,
+    parameter INPUT_ARRAY_LENGTH = 20,   //Length of arrays holding test words. Must be equal or logner than longest input word
+    parameter NUMBER_OF_TEST_WORDS = 7  //Exact number of test words
     )(
     
     );
@@ -39,10 +40,15 @@ module odd_even_RBWT_tb #(
         .done (done)
     );
     
-    int input_data [REAL_INPUT_LENGTH - 1 : 0] = '{"n", "n", "b", "a", "a", "a"};
-    int output_data [REAL_INPUT_LENGTH - 1 : 0];
-    int expected_data [REAL_INPUT_LENGTH - 1 : 0] = '{"b", "a", "n", "a", "n", "a"};
-    int original_line_idx = 2;
+    string input_data [0 : NUMBER_OF_TEST_WORDS - 1];
+    int input_data_length [0 : NUMBER_OF_TEST_WORDS - 1];
+    string expected_data [0 : NUMBER_OF_TEST_WORDS - 1];
+    int original_line_idx [0 : NUMBER_OF_TEST_WORDS - 1];
+    
+    int output_bytes [0 : INPUT_ARRAY_LENGTH - 1]; 
+    string output_data;
+    
+    int test_passed = 0;
     
     realtime start_time;
     realtime end_time;
@@ -51,11 +57,48 @@ module odd_even_RBWT_tb #(
     always #5 clk = ~clk;
     
     initial begin
+    
+        //writing test data to arrays
+        input_data[0] = "nnbaaa";
+        input_data_length[0] = 6;
+        expected_data[0] = "banana";
+        original_line_idx[0] = 3;
+        
+        input_data[1] = "pssmipissii";
+        input_data_length[1] = 11;
+        expected_data[1] = "mississippi";
+        original_line_idx[1] = 4;
+        
+        input_data[2] = "rdarcaaaabb";
+        input_data_length[2] = 11;
+        expected_data[2] = "abracadabra";
+        original_line_idx[2] = 2;
+        
+        input_data[3] = "fabcde";
+        input_data_length[3] = 6;
+        expected_data[3] = "abcdef";
+        original_line_idx[3] = 0;
+        
+        input_data[4] = "kjaka";
+        input_data_length[4] = 5;
+        expected_data[4] = "kajak";
+        original_line_idx[4] = 3;
+        
+        input_data[5] = "aaaa";
+        input_data_length[5] = 4;
+        expected_data[5] = "aaaa";
+        original_line_idx[5] = 0;
+        
+        input_data[6] = "ba";
+        input_data_length[6] = 2;
+        expected_data[6] = "ab";
+        original_line_idx[6] = 0;
+    
+        //starting tests
         rst <= 0;
         write_en <= 0;
         read_en <= 0;
         be <= 0;
-        original_line <= 0;
         @(posedge clk);
         
         //reseting module
@@ -64,50 +107,68 @@ module odd_even_RBWT_tb #(
         rst <= 0;
         @(posedge clk);
         
-        //starting timer
-        start_time = $realtime;
-        
-        //writing to module
-        write_en <= 1;
-        for(int i = 0 ; i < REAL_INPUT_LENGTH ; i = i + 1)begin
-            write_data <= input_data[i];
-            if(i == original_line_idx)begin
-                original_line <= 1;
-            end else begin
-                original_line <= 0;
+        //testing loop
+        for(int z = 0 ; z < NUMBER_OF_TEST_WORDS ; z = z + 1)begin
+            start_time = $realtime;
+            output_data = "";
+            
+            //writing to module
+            write_en <= 1;
+            for(int i = 0 ; i < input_data_length[z] ; i = i + 1)begin
+                write_data <= input_data[z][i];
+                if(i == original_line_idx[z])begin
+                    original_line <= 1;
+                end else begin
+                    original_line <= 0;
+                end
+                @(posedge clk);
             end
+            write_en <= 0;
+            
+            //starting algorithm
+            be <= 1;
             @(posedge clk);
-        end
-        write_en <= 0;
-        
-        //starting algorithm
-        be <= 1;
-        @(posedge clk);
-        be <= 0;
-        @(posedge clk);
-        
-        //waiting for algorithm completition and reading data
-        wait(done);
-        
-        read_en <= 1;
-        @(posedge clk);
-        @(posedge clk);
-        for(int i = 0 ; i < REAL_INPUT_LENGTH ; i = i + 1)begin
-            output_data[i] <= read_data;
+            be <= 0;
             @(posedge clk);
+            
+            //waiting for algorithm completition and reading data
+            wait(done);
+            read_en <= 1;
+            @(posedge clk);
+            @(posedge clk);
+            for(int i = 0 ; i < input_data_length[z] ; i = i + 1)begin
+                output_bytes[i] = read_data;
+                @(posedge clk);
+            end
+            read_en <= 0;
+            @(posedge clk);
+            
+            end_time = $realtime;
+            
+            //presenting data
+            output_data = "";
+            for(int i = 0; i < input_data_length[z]; i++) begin
+                output_data = {output_data, string'(output_bytes[i])};
+            end
+            $display("\n------------------------------------------------------");
+            $display("Test: %0d   word: %0s", z, input_data[z]);
+            $display("Algorithm time: %0t", end_time - start_time);
+            for(int i = 0 ; i < input_data_length[z] ; i = i + 1)begin
+                $display("idx: %0d   input: %0s   output: %0s   expected: %0s", i, input_data[z][i], output_data[i], expected_data[z][i]);
+            end
+            if(output_data == expected_data[z])begin
+                $display("Test PASSED");
+                test_passed++;
+            end else begin
+                $display("Test FAILED");
+            end
+            $display("------------------------------------------------------");
         end
         
-        end_time = $realtime;
-        #10 @(posedge clk);
-        //presenting tata
-        $display("Algorithm time: %0t", end_time - start_time);
-        for(int i = 0 ; i < REAL_INPUT_LENGTH ; i = i + 1)begin
-            $display("idx: %0d   input: %0s   output: %0s   expected: %0s", i, input_data[i], output_data[i], expected_data[i]);
-        end
-        if(output_data == expected_data)begin
-            $display("Algorithm works");
-        end
-        
+        $display("\n------------------------------------------------------");
+        $display("All tests completed");
+        $display("%0d/%0d tests passed", test_passed, NUMBER_OF_TEST_WORDS);
+        $display("------------------------------------------------------");
         $finish;
     end
 endmodule

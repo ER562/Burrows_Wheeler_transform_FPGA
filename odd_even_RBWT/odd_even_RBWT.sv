@@ -46,7 +46,7 @@ module odd_even_RBWT #(
                 if(state == 1)begin    //normal sorting
                     if(odd_even == 0 && z % 2 != 0 || odd_even && z % 2 == 0)begin
                         if(z < memory_pointer)begin //only comparing data that is acually in register
-                            if(data_memory[z - 1] < data_memory[z])begin
+                            if(data_memory[z - 1] > data_memory[z])begin
                                 data_memory[z - 1] <= data_memory[z];
                                 data_memory[z] <= data_memory[z - 1];
                                 index_memory[z - 1] <= index_memory[z];

@@ -23,6 +23,8 @@ module odd_even_BWT#(
     logic [$clog2(DATA_VOLUME) - 1 : 0] move_memory [DATA_VOLUME - 1 : 0];   //memory that stores cyclic shifts
     
     logic [$clog2(DATA_VOLUME + 1) - 1 : 0] memory_pointer; //this always points to place where new element would be stored
+    //or in the case of reading it is used as pointer that starts from 0 and goes to real_data_length
+    logic [$clog2(DATA_VOLUME) - 1 : 0] real_data_length;
     
     //additional variables
     logic [1 : 0] state;    //state of module:
@@ -47,7 +49,9 @@ module odd_even_BWT#(
                 if(state == 1)begin    //normal sorting
                     if(odd_even == 0 && z % 2 != 0 || odd_even && z % 2 == 0)begin
                         if(z < memory_pointer)begin //only comparing data that is acually in register
-                            if(data_memory[(move_memory[z - 1] + loop_counter) % DATA_VOLUME] > data_memory[(move_memory[z] + loop_counter) % DATA_VOLUME] && separator_bus[z] == 0)begin
+                            if(data_memory[(move_memory[z - 1] + loop_counter >= real_data_length) ? move_memory[z - 1] + loop_counter - real_data_length : move_memory[z - 1] + loop_counter] >
+                            data_memory[(move_memory[z] + loop_counter >= real_data_length) ? move_memory[z] + loop_counter - real_data_length : move_memory[z] + loop_counter]
+                            && separator_bus[z] == 0)begin  //this if statement can also be done by using % operator but it is much more hardware demanding
                                 move_memory[z - 1] <= move_memory[z];
                                 move_memory[z] <= move_memory[z - 1];
                                 done_comparing_bus[z] <= 0;
@@ -59,7 +63,8 @@ module odd_even_BWT#(
                         end
                     end
                 end else if(state == 2)begin    //separating letteres into itso own groups
-                    if(data_memory[move_memory[z - 1] + loop_counter] != data_memory[move_memory[z] + loop_counter])begin
+                    if(data_memory[(move_memory[z - 1] + loop_counter >= real_data_length) ? move_memory[z - 1] + loop_counter - real_data_length : move_memory[z - 1] + loop_counter] !=
+                    data_memory[(move_memory[z] + loop_counter >= real_data_length) ? move_memory[z] + loop_counter - real_data_length : move_memory[z] + loop_counter])begin
                         separator_bus[z] <= 1;
                     end
                 end
@@ -89,6 +94,7 @@ module odd_even_BWT#(
                     end
                     done_comparing_bus <= 0;
                     separator_bus <= 0;
+                    real_data_length <= memory_pointer;
                 end
             end else
             
@@ -109,20 +115,22 @@ module odd_even_BWT#(
                     state <= 3;
                     done <= 1;
                     original_line <= 0;
+                    memory_pointer <= 0;
                 end
             end else
             
             if(state == 3)begin //reading data only
-                if(memory_pointer == 0)begin    //no more data to read. returns to state 0
+                if(memory_pointer > real_data_length)begin    //no more data to read. returns to state 0
                     state <= 0;
+                    memory_pointer <= 0;    //reseting emory pointer to 0
                 end else if(read_en)begin
-                    read_data <= data_memory[move_memory[memory_pointer - 1]];
-                    if(move_memory[memory_pointer - 1] == 0)begin
+                    read_data <= data_memory[move_memory[memory_pointer] == 0 ? real_data_length - 1 : move_memory[memory_pointer] - 1];
+                    if(move_memory[memory_pointer] == 0)begin
                         original_line <= 1;
                     end else begin
                         original_line <= 0;
                     end
-                    memory_pointer <= memory_pointer - 1;
+                    memory_pointer <= memory_pointer + 1;
                 end
                 done <= 0;
             end

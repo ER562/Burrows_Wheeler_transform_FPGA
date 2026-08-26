@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="3268941900fs"></ZoomStartTime>
-      <ZoomEndTime time="3397941901fs"></ZoomEndTime>
-      <Cursor1Time time="3541200000fs"></Cursor1Time>
+      <ZoomStartTime time="3623666666fs"></ZoomStartTime>
+      <ZoomEndTime time="3781266667fs"></ZoomEndTime>
+      <Cursor1Time time="3755000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="202"></NameColumnWidth>
-      <ValueColumnWidth column_width="104"></ValueColumnWidth>
+      <ValueColumnWidth column_width="96"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="19" />
+   <WVObjectSize size="20" />
    <wvobject fp_name="/odd_even_BWT_tb/rst" type="logic">
       <obj_property name="ElementShortName">rst</obj_property>
       <obj_property name="ObjectShortName">rst</obj_property>
@@ -67,93 +67,6 @@
       <obj_property name="ElementShortName">data_memory[19:0][7:0]</obj_property>
       <obj_property name="ObjectShortName">data_memory[19:0][7:0]</obj_property>
       <obj_property name="Radix">ASCIIRADIX</obj_property>
-      <obj_property name="isExpanded"></obj_property>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[19]" type="array">
-         <obj_property name="ElementShortName">[19][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[19][7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[18]" type="array">
-         <obj_property name="ElementShortName">[18][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[18][7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[17]" type="array">
-         <obj_property name="ElementShortName">[17][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[17][7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[16]" type="array">
-         <obj_property name="ElementShortName">[16][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[16][7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[15]" type="array">
-         <obj_property name="ElementShortName">[15][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[15][7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[14]" type="array">
-         <obj_property name="ElementShortName">[14][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[14][7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[13]" type="array">
-         <obj_property name="ElementShortName">[13][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[13][7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[12]" type="array">
-         <obj_property name="ElementShortName">[12][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[12][7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[11]" type="array">
-         <obj_property name="ElementShortName">[11][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[11][7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[10]" type="array">
-         <obj_property name="ElementShortName">[10][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[10][7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[9]" type="array">
-         <obj_property name="ElementShortName">[9][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[9][7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[8]" type="array">
-         <obj_property name="ElementShortName">[8][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[8][7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[7]" type="array">
-         <obj_property name="ElementShortName">[7][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[7][7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[6]" type="array">
-         <obj_property name="ElementShortName">[6][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[6][7:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[5]" type="array">
-         <obj_property name="ElementShortName">[5][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[5][7:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[4]" type="array">
-         <obj_property name="ElementShortName">[4][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[4][7:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[3]" type="array">
-         <obj_property name="ElementShortName">[3][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[3][7:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[2]" type="array">
-         <obj_property name="ElementShortName">[2][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[2][7:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[1]" type="array">
-         <obj_property name="ElementShortName">[1][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[1][7:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/module_instance/data_memory[0]" type="array">
-         <obj_property name="ElementShortName">[0][7:0]</obj_property>
-         <obj_property name="ObjectShortName">[0][7:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
    </wvobject>
    <wvobject fp_name="/odd_even_BWT_tb/module_instance/move_memory" type="array">
       <obj_property name="ElementShortName">move_memory[19:0][4:0]</obj_property>
@@ -163,6 +76,10 @@
    <wvobject fp_name="/odd_even_BWT_tb/module_instance/memory_pointer" type="array">
       <obj_property name="ElementShortName">memory_pointer[4:0]</obj_property>
       <obj_property name="ObjectShortName">memory_pointer[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/odd_even_BWT_tb/module_instance/real_data_length" type="array">
+      <obj_property name="ElementShortName">real_data_length[4:0]</obj_property>
+      <obj_property name="ObjectShortName">real_data_length[4:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/odd_even_BWT_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
@@ -179,6 +96,7 @@
    <wvobject fp_name="/odd_even_BWT_tb/module_instance/separator_bus" type="array">
       <obj_property name="ElementShortName">separator_bus[19:1]</obj_property>
       <obj_property name="ObjectShortName">separator_bus[19:1]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject fp_name="/odd_even_BWT_tb/module_instance/loop_counter" type="array">
       <obj_property name="ElementShortName">loop_counter[4:0]</obj_property>
@@ -188,106 +106,5 @@
       <obj_property name="ElementShortName">output_bytes[0:19][31:0]</obj_property>
       <obj_property name="ObjectShortName">output_bytes[0:19][31:0]</obj_property>
       <obj_property name="Radix">ASCIIRADIX</obj_property>
-      <obj_property name="isExpanded"></obj_property>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[0]" type="array">
-         <obj_property name="ElementShortName">[0][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[0][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[1]" type="array">
-         <obj_property name="ElementShortName">[1][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[1][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[2]" type="array">
-         <obj_property name="ElementShortName">[2][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[2][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[3]" type="array">
-         <obj_property name="ElementShortName">[3][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[3][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[4]" type="array">
-         <obj_property name="ElementShortName">[4][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[4][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[5]" type="array">
-         <obj_property name="ElementShortName">[5][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[5][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[6]" type="array">
-         <obj_property name="ElementShortName">[6][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[6][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[7]" type="array">
-         <obj_property name="ElementShortName">[7][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[7][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[8]" type="array">
-         <obj_property name="ElementShortName">[8][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[8][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[9]" type="array">
-         <obj_property name="ElementShortName">[9][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[9][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[10]" type="array">
-         <obj_property name="ElementShortName">[10][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[10][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[11]" type="array">
-         <obj_property name="ElementShortName">[11][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[11][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[12]" type="array">
-         <obj_property name="ElementShortName">[12][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[12][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[13]" type="array">
-         <obj_property name="ElementShortName">[13][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[13][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[14]" type="array">
-         <obj_property name="ElementShortName">[14][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[14][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[15]" type="array">
-         <obj_property name="ElementShortName">[15][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[15][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[16]" type="array">
-         <obj_property name="ElementShortName">[16][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[16][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[17]" type="array">
-         <obj_property name="ElementShortName">[17][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[17][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[18]" type="array">
-         <obj_property name="ElementShortName">[18][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[18][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/odd_even_BWT_tb/output_bytes[19]" type="array">
-         <obj_property name="ElementShortName">[19][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[19][31:0]</obj_property>
-         <obj_property name="Radix">ASCIIRADIX</obj_property>
-      </wvobject>
    </wvobject>
 </wave_config>
