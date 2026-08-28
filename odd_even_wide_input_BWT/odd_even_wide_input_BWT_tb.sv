@@ -2,6 +2,7 @@
 
 module odd_even_BWT_tb #(
     parameter DATA_WIDTH = 8,
+    parameter DATA_POINTS_PER_CYCLE = 3,
     parameter DATA_VOLUME = 20,
     parameter INPUT_ARRAY_LENGTH = 20,   //Length of arrays holding test words. Must be equal or logner than longest input word
     parameter NUMBER_OF_TEST_WORDS = 7  //Exact number of test words
@@ -13,11 +14,12 @@ module odd_even_BWT_tb #(
     logic rst;
     
     logic write_en;
-    logic [DATA_WIDTH - 1 : 0] write_data;
+    logic [(DATA_WIDTH * DATA_POINTS_PER_CYCLE) - 1 : 0] write_data;
+    logic [$clog2(DATA_POINTS_PER_CYCLE) - 1 : 0] write_data_size;
     
     logic read_en;
-    logic [DATA_WIDTH - 1 : 0] read_data;
-    logic original_line;
+    logic [(DATA_WIDTH * DATA_POINTS_PER_CYCLE) - 1 : 0] read_data;
+    logic [$clog2(DATA_POINTS_PER_CYCLE + 1) - 1 : 0] original_line;
     
     logic be;
     logic done;
@@ -31,6 +33,7 @@ module odd_even_BWT_tb #(
         
         .write_en (write_en),
         .write_data (write_data),
+        .write_data_size (write_data_size),
         
         .read_en (read_en),
         .read_data (read_data),
@@ -115,8 +118,15 @@ module odd_even_BWT_tb #(
             
             //writing to module
             write_en <= 1;
-            for(int i = 0 ; i < input_data_length[z] ; i = i + 1)begin
-                write_data <= input_data[z][i];
+            for(int i = 0 ; i < input_data_length[z] ; i = i + DATA_POINTS_PER_CYCLE)begin
+                automatic int chunk_size = 0;
+                for(int j = 0 ; j < DATA_POINTS_PER_CYCLE ; j++)begin 
+                    if(i + j < input_data_length[z])begin
+                        write_data[j * DATA_WIDTH +: DATA_WIDTH] <= input_data[z][i + j];
+                        chunk_size++;
+                    end
+                end
+                write_data_size <= chunk_size;
                 @(posedge clk);
             end
             write_en <= 0;
@@ -132,10 +142,14 @@ module odd_even_BWT_tb #(
             read_en <= 1;
             @(posedge clk);
             @(posedge clk);
-            for(int i = 0 ; i < input_data_length[z] ; i = i + 1)begin
-                output_bytes[i] = read_data;
-                if(original_line)begin
-                    original_line_idx <= i;
+            for(int i = 0 ; i < input_data_length[z] ; i = i + DATA_POINTS_PER_CYCLE)begin
+                for(int j = 0 ; j < DATA_POINTS_PER_CYCLE ; j++)begin
+                    if(i + j < input_data_length[z])begin
+                        output_bytes[i + j] = read_data[j * DATA_WIDTH +: DATA_WIDTH];
+                        if(original_line != DATA_POINTS_PER_CYCLE)begin
+                            original_line_idx <= i + original_line;
+                        end
+                    end
                 end
                 @(posedge clk);
             end
