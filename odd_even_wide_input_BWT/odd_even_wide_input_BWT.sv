@@ -41,39 +41,6 @@ module odd_even_BWT#(
     logic [DATA_VOLUME - 1 : 1] done_comparing_bus; //bus used for ending comparing loop if all comparators raise 1
     logic [DATA_VOLUME - 1 : 1] separator_bus;  //prevents sorting of already sorted parts of the word
     
-    //creating comparators
-    genvar z;
-    generate
-        for(z = 1 ; z < DATA_VOLUME ; z = z + 1)begin : comparators
-            //creating comparators for odd and even phases
-            //this only swap indexes in move_memory
-            always_ff @(posedge clk)begin
-                if(state == 1)begin    //normal sorting
-                    if(odd_even == 0 && z % 2 != 0 || odd_even && z % 2 == 0)begin
-                        if(z < memory_pointer)begin //only comparing data that is acually in register
-                            if(data_memory[(move_memory[z - 1] + loop_counter >= real_data_length) ? move_memory[z - 1] + loop_counter - real_data_length : move_memory[z - 1] + loop_counter] >
-                            data_memory[(move_memory[z] + loop_counter >= real_data_length) ? move_memory[z] + loop_counter - real_data_length : move_memory[z] + loop_counter]
-                            && separator_bus[z] == 0)begin  //this if statement can also be done by using % operator but it is much more hardware demanding
-                                move_memory[z - 1] <= move_memory[z];
-                                move_memory[z] <= move_memory[z - 1];
-                                done_comparing_bus[z] <= 0;
-                            end else begin  //setting done flag if swap didn't occur
-                                done_comparing_bus[z] <= 1;
-                            end
-                        end else begin   //setting done flag if there is no data to compare in this comparator
-                            done_comparing_bus[z] <= 1;
-                        end
-                    end
-                end else if(state == 2)begin    //separating letteres into itso own groups
-                    if(data_memory[(move_memory[z - 1] + loop_counter >= real_data_length) ? move_memory[z - 1] + loop_counter - real_data_length : move_memory[z - 1] + loop_counter] !=
-                    data_memory[(move_memory[z] + loop_counter >= real_data_length) ? move_memory[z] + loop_counter - real_data_length : move_memory[z] + loop_counter])begin
-                        separator_bus[z] <= 1;
-                    end
-                end
-            end
-        end
-    endgenerate
-    
     always_ff @(posedge clk)begin
         if(rst)begin    //reset always have priority
             done <= 0;
@@ -95,7 +62,7 @@ module odd_even_BWT#(
                     state <= 1;
                     odd_even <= 0;
                     loop_counter <= 0;
-                    for(int i = 0 ; i < memory_pointer ; i = i + 1)begin    //creating cyclic shifts
+                    for(int i = 0 ; i < DATA_VOLUME ; i = i + 1)begin    //creating cyclic shifts
                         move_memory[i] <= i;
                     end
                     done_comparing_bus <= 0;
@@ -109,6 +76,28 @@ module odd_even_BWT#(
                     state <= 2;
                 end
                 odd_even <= ~ odd_even;
+                
+                //comparator
+                for(int z = 1 ; z < DATA_VOLUME ; z = z + 1)begin : comparators
+                    //creating comparators for odd and even phases
+                    //this only swap indexes in move_memory
+                    if(odd_even == 0 && z % 2 != 0 || odd_even && z % 2 == 0)begin
+                        if(z < memory_pointer)begin //only comparing data that is acually in register
+                            if(data_memory[(move_memory[z - 1] + loop_counter >= real_data_length) ? move_memory[z - 1] + loop_counter - real_data_length : move_memory[z - 1] + loop_counter] >
+                            data_memory[(move_memory[z] + loop_counter >= real_data_length) ? move_memory[z] + loop_counter - real_data_length : move_memory[z] + loop_counter]
+                            && separator_bus[z] == 0)begin  //this if statement can also be done by using % operator but it is much more hardware demanding
+                                move_memory[z - 1] <= move_memory[z];
+                                move_memory[z] <= move_memory[z - 1];
+                                done_comparing_bus[z] <= 0;
+                            end else begin  //setting done flag if swap didn't occur
+                                done_comparing_bus[z] <= 1;
+                            end
+                        end else begin   //setting done flag if there is no data to compare in this comparator
+                            done_comparing_bus[z] <= 1;
+                        end
+                    end
+                end
+                
             end else
             
             if(state == 2)begin //sorting between words
@@ -122,6 +111,13 @@ module odd_even_BWT#(
                     done <= 1;
                     original_line <= 0;
                     memory_pointer <= 0;
+                end
+                
+                for(int z = 1 ; z < DATA_VOLUME ; z = z + 1)begin : separators
+                    if(data_memory[(move_memory[z - 1] + loop_counter >= real_data_length) ? move_memory[z - 1] + loop_counter - real_data_length : move_memory[z - 1] + loop_counter] !=
+                        data_memory[(move_memory[z] + loop_counter >= real_data_length) ? move_memory[z] + loop_counter - real_data_length : move_memory[z] + loop_counter])begin
+                        separator_bus[z] <= 1;
+                    end
                 end
             end else
             
