@@ -14,7 +14,7 @@ module odd_even_RBWT #(
     input logic [$clog2(DATA_POINTS_PER_CYCLE + 1) - 1 : 0] original_line,
     
     input logic read_en,
-    output logic [(DATA_WIDTH * DATA_POINTS_PER_CYCLE) - 1 : 0] read_data,
+    output logic [DATA_WIDTH - 1 : 0] read_data,
     
     input logic be,
     output logic done

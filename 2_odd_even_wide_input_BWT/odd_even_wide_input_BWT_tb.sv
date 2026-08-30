@@ -54,6 +54,7 @@ module odd_even_BWT_tb #(
     
     int test_passed = 0;
     
+    realtime total_time;
     realtime start_time;
     realtime end_time;
     
@@ -160,6 +161,7 @@ module odd_even_BWT_tb #(
             
             //presenting data
             output_data = "";
+            total_time = total_time + (end_time - start_time);
             for(int i = 0; i < input_data_length[z]; i++) begin
                 output_data = {output_data, string'(output_bytes[i])};
             end
@@ -182,6 +184,7 @@ module odd_even_BWT_tb #(
         $display("\n------------------------------------------------------");
         $display("All tests completed");
         $display("%0d/%0d tests passed", test_passed, NUMBER_OF_TEST_WORDS);
+        $display("Total time: %0t", total_time);
         $display("------------------------------------------------------");
         $finish;
     end
